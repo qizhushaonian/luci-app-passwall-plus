@@ -1,4 +1,4 @@
-name: mipsel_24kc
+name: mips_74kc
 
 on:
   #push:
