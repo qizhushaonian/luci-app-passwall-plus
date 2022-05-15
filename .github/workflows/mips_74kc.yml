@@ -115,8 +115,8 @@ jobs:
         export STAGING_DIR=${dirn}/${dirn1}
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        #wget --no-check-certificate --quiet --continue --show-progress --output-document='.config' ${URL%/*}/config.buildinfo
-        #[ $? -ne 0 ]&&echo "下载.config失败!"&&exit 127
+        wget --no-check-certificate --quiet --continue --show-progress --output-document='.config' ${URL%/*}/config.ar71xx_generic
+        [ $? -ne 0 ]&&echo "下载.config失败!"&&exit 127
         [ ! -d feeds/luci/applications ]&&echo "没有找到 feeds/luci/applications 路径!"&&exit 127
         echo "克隆 luci-app-passwall-plus 中..."
         git clone https://github.com/chongteng2017/luci-app-passwall feeds/luci/applications/luci-app-passwall-plus
@@ -124,6 +124,14 @@ jobs:
         cd feeds/luci/applications/luci-app-passwall-plus
         echo "更新 luci-app-passwall-plus 的子模块..."
         git submodule update --init --recursive
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    - name: makepo2
+      run: |
         echo "编译 po2lmo ..."
         cd tools/po2lmo
         make -j${cores:=1}
