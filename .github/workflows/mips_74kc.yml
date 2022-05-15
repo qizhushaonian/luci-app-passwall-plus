@@ -121,10 +121,10 @@ jobs:
         echo "克隆 luci-app-passwall-plus 中..."
         git clone https://github.com/chongteng2017/luci-app-passwall feeds/luci/applications/luci-app-passwall-plus
         echo "进入 luci-app-passwall-plus 软件包目录..."
-        pushd feeds/luci/applications/luci-app-passwall-plus
+        cd feeds/luci/applications/luci-app-passwall-plus
         echo "更新 luci-app-passwall-plus 的子模块..."
         git submodule update --init --recursive  
-        popd
+        cd ../../../../
         ./scripts/feeds update -a
         ./scripts/feeds install luci-app-passwall
         make package/luci-app-passwall-plus/compile -j${cores:=1}
