@@ -129,7 +129,6 @@ jobs:
         ./scripts/feeds install luci-app-passwall
         make package/luci-app-passwall-plus/compile -j${cores:=1}
         find bin/ -type f -name "*luci-app-passwall-plus*" | xargs -t -i mv -vf {} /tmp/ipk
-        popd
         mkdir -p ../../root/usr/bin
         mv /tmp/bin/* ../../root/usr/bin
         chmod -R +x ../../root/usr/bin
