@@ -128,25 +128,10 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install luci-app-passwall
         make package/luci-app-passwall-plus/compile -j${cores:=1}
-        find bin/ -type f -name "*luci-app-passwall-plus*" | xargs -t -i mv -vf {} /tmp/ipk
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-    - name: bin
-      run: |
-        mkdir -p ../../root/usr/bin
-        mv /tmp/bin/* ../../root/usr/bin
-        chmod -R +x ../../root/usr/bin
-        #opkg print-architecture 查看平台架构
-        sed -i "s/PKGARCH:=all/PKGARCH:=$garch/g;s/PKG_RELEASE:=1/PKG_RELEASE:=2/g" ../../Makefile
-        pushd ${dirn}/${dirn1}
+        #find bin/ -type f -name "*luci-app-passwall*" | xargs -t -i mv -vf {} /tmp/ipk
+        sed -i "s/PKGARCH:=all/PKGARCH:=$garch/g;s/PKG_RELEASE:=1/PKG_RELEASE:=2/g" Makefile
         make package/luci-app-passwall-plus/compile -j${cores:=1}
-        find bin/ -type f -name "*luci-app-passwall-plus*" | xargs -t -i mv -vf {} /tmp/ipk
-        popd
-        ls -l ../../root/usr/bin
+        find bin/ -type f -name "*luci-app-passwall*" | xargs -t -i mv -vf {} /tmp/ipk
         ls -l /tmp/ipk
     - name: Check space usage
       if: (!cancelled())
