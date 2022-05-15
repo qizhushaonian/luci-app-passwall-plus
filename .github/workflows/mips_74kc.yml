@@ -130,7 +130,7 @@ jobs:
         [ $? -ne 0 ]&&echo "下载.config失败!"&&exit 127
         [ ! -d feeds/luci/applications ]&&echo "没有找到 feeds/luci/applications 路径!"&&exit 127
         echo "克隆 luci-app-passwall-plus 中..."
-        git clone https://github.com/yiguihai/luci-app-passwall-plus feeds/luci/applications/luci-app-passwall-plus
+        git clone https://github.com/chongteng2017/luci-app-passwall feeds/luci/applications/luci-app-passwall-plus
         echo "进入 luci-app-passwall-plus 软件包目录..."
         cd feeds/luci/applications/luci-app-passwall-plus
         echo "更新 luci-app-passwall-plus 的子模块..."
