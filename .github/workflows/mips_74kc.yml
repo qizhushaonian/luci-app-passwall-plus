@@ -113,17 +113,6 @@ jobs:
         fi
         export PATH=$PATH:/usr/local/go/bin:${dirn}/${dirn1}/staging_dir/${dirn2}/bin
         export STAGING_DIR=${dirn}/${dirn1}
-        
-        
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          
-    - name: Build_make
-      run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         wget --no-check-certificate --quiet --continue --show-progress --output-document='.config' ${URL%/*}/config.buildinfo
