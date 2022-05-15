@@ -158,8 +158,8 @@ jobs:
         no-asm \
         --cross-compile-prefix=${target_host}- \
         --prefix=/tmp/ssl \
-        linux-mips32 #需要修改
-        make -j${cores:=1}
+        linux-mips #需要修改
+        make -j${cores:=1} V=s
         make install_sw
         make distclean
         #因为make install乱加sudo试错了一天 https://stackoverflow.com/questions/23078282/ranlib-not-found
