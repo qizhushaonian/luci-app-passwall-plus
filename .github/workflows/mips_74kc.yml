@@ -60,7 +60,7 @@ jobs:
         #wget --no-check-certificate --quiet --continue --show-progress $(wget -qO- ${URL%/*} | grep -oP "OpenWrt\-SDK\-(\w|.|-)+?\.tar\.bz2" | head -n 1)
         wget --no-check-certificate --quiet --continue --show-progress $URL
         [ $? -ne 0 ]&&echo "下载工具链失败!"&&exit 127
-        tar xvJf OpenWrt-SDK-*.tar.bz2
+        tar jxvf OpenWrt-SDK-*.tar.bz2
         [ $? -ne 0 ]&&echo "解压工具链失败!"&&exit 127
         rm -f ${URL##*/}
 
