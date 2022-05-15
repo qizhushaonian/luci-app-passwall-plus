@@ -70,7 +70,7 @@ jobs:
         cores=$(cat /proc/cpuinfo|grep processor|wc -l)
         dirn=$(pwd)
         dirn1=${URL##*/}
-        dirn1=${dirn1%*${dirn1:(-7)}} 
+        dirn1=${dirn1%*${dirn1:(-8)}} 
         if [ -d ${dirn1} ]; then
           echo "#工具链解压文件夹 ${dirn1}"
         else
